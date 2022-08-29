@@ -1,4 +1,5 @@
 class TodolistsController < ApplicationController
+  # protect_from_forgery :except => [:destroy]
   def index
     @lists = List.all
   end
@@ -32,6 +33,14 @@ class TodolistsController < ApplicationController
     redirect_to todolist_path(list.id)
     # ---- ここまでのあいだにコードを書きましょう ---- #
 
+  end
+  
+  def destroy
+    # ---- ここからコードを書きましょう ---- #
+    list = List.find(params[:id])  # データ（レコード）を1件取得
+    list.destroy  # データ（レコード）を削除
+    redirect_to todolists_path, status: :see_other  # 投稿一覧画面へリダイレクト
+    # ---- ここまでのあいだにコードを書きましょう ---
   end
   
   private
